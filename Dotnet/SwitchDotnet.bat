@@ -1,48 +1,63 @@
 @echo off
+:: =====================================================
+:: SwitchDotnet.bat
+:: A script to switch between local .NET SDK versions.
+::
+:: Usage:
+::   SwitchDotnet <version>
+:: Example:
+::   SwitchDotnet 9.0.306
+:: =====================================================
 
-set DOTNET_BASE_DIR=C:\Dotnet\versions
+:: === CONFIGURATION ===
+set DOTNET_BASE_DIR=%~dp0versions
 
+:: === INPUT VALIDATION ===
 if "%~1"=="" (
-	echo.
-	echo ERRORE: Nessuna versione .NET specificata.
-	echo.
-	echo Uso: SwitchDotnet ^<versione^>
-	echo Esempio: SwitchDotnet 9.0.306
-	echo.
-	echo Versioni supportate: 8.0.121, 9.0.306, 10.0.100
-	echo.
-	goto :eof
+    echo.
+    echo ERROR: No .NET version specified.
+    echo.
+    echo Usage: SwitchDotnet ^<version^>
+    echo Example: SwitchDotnet 9.0.306
+    echo.
+    echo Example versions: 8.0.121, 9.0.306, 10.0.100
+    echo.
+    goto :eof
 )
 
-set DOTNET_SELECTED_VERSION=%DOTNET_BASE_DIR%\dotnet-sdk-%~1
+:: === BUILD THE TARGET PATH ===
+set "DOTNET_SELECTED_VERSION=%DOTNET_BASE_DIR%\dotnet-sdk-%~1"
 
+:: === CHECK IF THE TARGET VERSION EXISTS ===
 if not exist "%DOTNET_SELECTED_VERSION%\dotnet.exe" (
-	echo.
-	echo ERRORE: .NET SDK per la versione %~1 non trovato in "%DOTNET_BASE_DIR%"
-	echo Assicurati di aver estratto correttamente l'SDK binario.
-	echo.
-	echo Versioni supportate: 8.0.121, 9.0.306, 10.0.100
-	echo.
-	goto :eof
+    echo.
+    echo ERROR: .NET SDK version %~1 not found in "%DOTNET_BASE_DIR%"
+    echo Make sure you have extracted the SDK binaries correctly.
+    echo.
+    echo Example versions: 8.0.121, 9.0.306, 10.0.100
+    echo.
+    goto :eof
 )
 
-REM set DOTNET_ROOT=%DOTNET_SELECTED_VERSION%
+:: === UPDATE ENVIRONMENT VARIABLES ===
+setx DOTNET_ROOT "%DOTNET_SELECTED_VERSION%"
+setx /M DOTNET_ROOT "%DOTNET_SELECTED_VERSION%"
+set "Path=%PATH%;%DOTNET_SELECTED_VERSION%;%DOTNET_SELECTED_VERSION%\dotnet.exe"
 
-setx DOTNET_ROOT %DOTNET_SELECTED_VERSION%
-setx /M DOTNET_ROOT %DOTNET_SELECTED_VERSION%
-set Path=%PATH%;"%DOTNET_ROOT%";"%DOTNET_ROOT%\dotnet.exe!
-
-dotnet --version
-
-REM Check if an error occurred during the operation
+:: === VERIFY THE SWITCH ===
 if %ERRORLEVEL% neq 0 (
-	echo.
-    echo Dotnet setting error - this version is not applicable
-	echo.
+    echo.
+    echo ERROR: Failed to set the specified .NET version.
+    echo Reasons: 
+	echo - This version might not be compatible
+	echo - The installation was unsuccessful.
+	echo - Insufficient permissions to change system settings.
+	echo Try running the .bat in administrator mode.
+    echo.
+    goto :eof
 )
 
-if %ERRORLEVEL% neq 1 (
-	echo.
-    echo Dotnet version updated to %~1
-	echo.
-)
+echo.
+echo .NET version successfully switched to %~1
+echo.
+

@@ -1,4 +1,3 @@
-/**
 README — SDK & Runtime Switcher (Windows)
 
 Overview
@@ -9,7 +8,7 @@ to switch the active SDK or runtime for your current Windows shell session.
 
 What the switch scripts do
 --------------------------
-- The Switch<environment>.bat <version> scripts adjust environment variables (for example PATH)
+- The Switch\<environment>.bat \<version> scripts adjust environment variables (for example PATH)
     in the current Command Prompt / PowerShell session so that the specified SDK/runtime version
     becomes active for commands you run in that shell.
 - They do not permanently change system-wide environment variables. To make a global change,
@@ -28,9 +27,9 @@ the desired version string:
         .\subdirectory\SwitchDotnet.bat 9.0.306
 
 Notes:
-- Replace <environment> with the actual environment name used by this repo (e.g., "Java", "Python", "Dotnet")
+- Replace \<environment> with the actual environment name used by this repo (e.g., "Java", "Python", "Dotnet")
     or run the script filename that exists in the subdirectory.
-- Replace <version> with an exact version folder name that exists under the subdirectory.
+- Replace \<version> with an exact version folder name that exists under the subdirectory.
 
 Finding available versions
 --------------------------
@@ -44,7 +43,7 @@ Verifying the active version
 After running a switch script, verify the active tool version using the tool's version command.
 Examples:
     - For .NET SDK/runtime: dotnet --version
-    - For other toolchains: <env> --version or <tool> -v
+    - For other toolchains: \<env> --version or \<tool> -v
 
 for example, `javac --version` or `dotnet --version`
 
@@ -64,4 +63,3 @@ Contact / Notes
 ---------------
 If the repository includes README.md at the root, add or adapt these instructions there. If the
 switch scripts follow different naming or behavior conventions, refer to the script headers for specific details.
-*/

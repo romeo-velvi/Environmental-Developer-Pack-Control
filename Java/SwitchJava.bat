@@ -1,34 +1,64 @@
 @echo off
-set pathfound="false"
-REM Check if a file path is provided as an argument
-if "%~1"=="1.8.0" (
-  setx JAVA_HOME "C:\Java\development_kit\jdk-1.8.0"
-  setx /M JAVA_HOME C:\Java\development_kit\jdk-1.8.0
-  set pathfound="true"
-)
-if "%~1"=="11.0.11" (
-  setx JAVA_HOME "C:\Java\development_kit\jdk-11.0.11"
-  setx /M JAVA_HOME C:\Java\development_kit\jdk-11.0.11
-  set pathfound="true"
+:: =====================================================
+:: SwitchJava.bat
+:: A script to switch between local Java JDK versions.
+::
+:: Usage:
+::   SwitchJava <version>
+:: Example:
+::   SwitchJava 11.0.11
+:: =====================================================
+
+
+:: === CONFIGURATION ===
+:: Automatically set the base directory to the script’s folder + "\versions"
+set JAVA_BASE_DIR=%~dp0versions
+
+:: === INPUT VALIDATION ===
+if "%~1"=="" (
+    echo.
+    echo ERROR: No Java version specified.
+    echo.
+    echo Usage: SwitchJava ^<version^>
+    echo Example: SwitchJava 11.0.11
+    echo.
+    echo Example versions: 1.8.0, 11.0.11, 19.0.2
+    echo.
+    goto :eof
 )
 
-if "%~1"=="19.0.2" (
-  setx JAVA_HOME "C:\Java\development_kit\jdk-19.0.2"
-  setx /M JAVA_HOME C:\Java\development_kit\jdk-19.0.2
-  set pathfound="true"
+:: === BUILD TARGET PATH ===
+set "JAVA_SELECTED_VERSION=%JAVA_BASE_DIR%\jdk-%~1"
+
+:: === CHECK IF THE TARGET VERSION EXISTS ===
+if not exist "%JAVA_SELECTED_VERSION%" (
+    echo.
+    echo ERROR: Java version %~1 not found in "%JAVA_BASE_DIR%"
+    echo Make sure the version folder exists and is correctly installed.
+    echo.
+    echo Example versions: 1.8.0, 11.0.11, 19.0.2
+    echo.
+    goto :eof
 )
 
-REM Check if an error occourred during the operation
+:: === UPDATE ENVIRONMENT VARIABLES ===
+setx JAVA_HOME "%JAVA_SELECTED_VERSION%"
+setx /M JAVA_HOME "%JAVA_SELECTED_VERSION%"
+set "Path=%PATH%;%JAVA_SELECTED_VERSION%\bin"
+
+:: === VERIFY THE SWITCH ===
 if %ERRORLEVEL% neq 0 (
-	if %pathfound% == "false" (
-		echo.
-		echo Java setting error - this version is not applicable
-	)
+    echo.
+    echo ERROR: Failed to set the specified Java version.
+    echo Reasons: 
+    echo - This version might not be compatible
+    echo - The installation was unsuccessful
+    echo - Insufficient permissions to change system settings
+    echo Try running the .bat in administrator mode.
+    echo.
+    goto :eof
 )
 
-if %ERRORLEVEL% neq 1 (
-	if %pathfound% == "true" (
-	  echo.
-	  echo Java version updated to %~1
-	)
-)
+echo.
+echo Java version successfully switched to %~1
+echo.
