@@ -24,10 +24,10 @@ the desired version string:
 
     Concrete examples:
         .\subdirectory\SwitchJava.bat 11.0.11
-        .\subdirectory\SwitchDotnet.bat 9.0.306
+        .\subdirectory\SwitchFlutter.bat 9.0.306
 
 Notes:
-- Replace \<environment> with the actual environment name used by this repo (e.g., "Java", "Python", "Dotnet")
+- Replace \<environment> with the actual environment name used by this repo (e.g., "Java", "Python", "Dotnet", "Flutter")
     or run the script filename that exists in the subdirectory.
 - Replace \<version> with an exact version folder name that exists under the subdirectory.
 
@@ -42,7 +42,7 @@ Verifying the active version
 ----------------------------
 After running a switch script, verify the active tool version using the tool's version command.
 Examples:
-    - For .NET SDK/runtime: dotnet --version
+    - For flutter: flutter --version
     - For other toolchains: \<env> --version or \<tool> -v
 
 for example, `javac --version` or `dotnet --version`
