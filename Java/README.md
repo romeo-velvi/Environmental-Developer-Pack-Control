@@ -123,7 +123,3 @@ The output should match the version you passed to the script.
 * Confirm that required system paths are preserved when modifying `PATH`.
 
 ---
-
-I can also **draft a compact version that includes screenshots of folder layout and usage examples**, similar to professional open-source Java tools — which would make it easier for team members to understand.
-
-Do you want me to do that next?
