@@ -1,5 +1,7 @@
 README — SDK & Runtime Switcher (Windows)
 
+NOTE - check for each .bat file if it is necessary to add the %<ENV>% to the "path" elements.
+
 Overview
 --------
 This repository (or subdirectory) contains multiple installed SDK and runtime versions for the project.
