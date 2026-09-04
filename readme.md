@@ -1,6 +1,6 @@
 README — SDK & Runtime Switcher (Windows)
 
-NOTE - check for each .bat file if it is necessary to add the %<ENV>% to the "path" elements.
+TODO - check for each .bat file if it is necessary to add the %<ENV>% to the "path" elements.
 
 Overview
 --------
