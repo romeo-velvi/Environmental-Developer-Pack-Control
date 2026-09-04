@@ -66,7 +66,7 @@ Example:
 Check the currently active Flutter version with:
 
 ```
-Flutter -version
+Flutter --version
 ```
 
 The output should match the version you passed to the script.
