@@ -1,6 +1,8 @@
 README — SDK & Runtime Switcher (Windows)
 
-TODO - check for each .bat file if it is necessary to add the %<ENV>% to the "path" elements.
+TODO: 
+- check for each .bat file if it is necessary to add the %<ENV>% to the "path" elements. 
+- check for python to add both %PYTHON% and %PYTHON%\Scripts in "Path"
 
 Overview
 --------
